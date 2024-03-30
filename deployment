@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myjenkins-replica
+  labels: 
+    app: jenkins
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+  selector: 
+    matchLabels:
+      app: harsha
+  template:
+    metadata:
+      name: jenkins-2
+      labels:
+        app: harsha
+    spec:
+      containers:
+        - name: tomcat
+          image: jenkins/jenkins:lts
